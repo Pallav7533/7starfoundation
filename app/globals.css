@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html { scroll-behavior: smooth; }
+body { @apply bg-ivory text-body font-sans antialiased; overflow-x: hidden; }
+h1, h2, h3, .font-display { font-family: var(--font-serif), Georgia, serif; }
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2; }
+  .btn-primary { @apply btn bg-magenta text-white shadow-soft hover:bg-magenta-dark; }
+  .btn-navy { @apply btn bg-navy text-white hover:bg-navy-light; }
+  .btn-outline { @apply btn border border-navy/30 text-navy hover:border-magenta hover:text-magenta; }
+  .btn-gold { @apply btn bg-gold text-navy hover:bg-gold-light; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[.22em] text-magenta; }
+  .gold-rule { @apply h-px w-16 bg-gradient-to-r from-gold to-transparent; }
+  .field { @apply w-full rounded-xl border border-navy/20 bg-white px-4 py-3 text-sm text-body outline-none transition focus:border-magenta focus:ring-2 focus:ring-magenta/20; }
+  .label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-navy/70; }
+  .card { @apply rounded-2xl bg-white shadow-soft; }
+}
+
+.gold-frame { border: 2px solid #D7A54A; outline: 1px solid rgba(215,165,74,.45); outline-offset: 6px; }
+.fade-up { animation: fadeUp .8s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
