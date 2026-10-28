@@ -44,6 +44,7 @@ export default function Header({ ashrams, campaigns }: { ashrams: Item[]; campai
   );
 
   return (
+    <>
     <header className={`sticky top-0 z-50 border-b border-gold/30 bg-ivory/95 backdrop-blur transition-shadow ${scrolled ? "shadow-soft" : ""}`}>
       <div className="container-x flex h-[76px] items-center justify-between gap-4">
         <Logo size={52} />
@@ -70,6 +71,8 @@ export default function Header({ ashrams, campaigns }: { ashrams: Item[]; campai
         </div>
       </div>
 
+    </header>
+
       {open && (
         <div className="fixed inset-x-0 bottom-0 top-[76px] z-40 overflow-y-auto bg-ivory xl:hidden">
           <nav aria-label="Mobile" className="container-x flex flex-col py-4">
@@ -87,6 +90,6 @@ export default function Header({ ashrams, campaigns }: { ashrams: Item[]; campai
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
