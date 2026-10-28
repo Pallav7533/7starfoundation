@@ -2,7 +2,7 @@ import Link from "next/link";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { todayIST } from "@/lib/content";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "revalidate = 60";
 
 export default async function Dashboard() {
   const db = createServerSupabase();

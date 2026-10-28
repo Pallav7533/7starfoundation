@@ -4,7 +4,7 @@ import PageHero from "@/components/PageHero";
 import SafeImage from "@/components/SafeImage";
 import { getAshram } from "@/lib/content";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "revalidate = 60";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const a = await getAshram(params.slug);

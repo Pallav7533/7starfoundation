@@ -4,7 +4,7 @@ import SafeImage from "@/components/SafeImage";
 import { getSettings } from "@/lib/content";
 
 export const metadata = { title: "About Us" };
-export const dynamic = "force-dynamic";
+export const dynamic = "revalidate = 60";
 
 export default async function About() {
   const s = await getSettings();

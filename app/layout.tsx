@@ -6,7 +6,7 @@ import { getSettings } from "@/lib/content";
 const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-serif", display: "swap" });
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
-export const dynamic = "force-dynamic";
+export const dynamic = "revalidate = 60";
 
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSettings();

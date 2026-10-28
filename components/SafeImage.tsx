@@ -66,7 +66,7 @@ export default function SafeImage({
           className="absolute inset-0 h-full w-full scale-125 object-cover blur-2xl" />
       )}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img ref={img} src={src} alt={alt} loading={loading} decoding="async"
+      <img ref={img} src={src} alt={alt} loading={loading} decoding="async" fetchPriority={eager ? "high" : "auto"}
         onLoad={decide} onError={() => setFailed(true)}
         className={`absolute inset-0 h-full w-full ${blur ? "object-contain" : "object-cover"}`}
         style={blur ? undefined : { objectPosition: position }} />

@@ -12,7 +12,8 @@ export function getPublicClient(): SupabaseClient | null {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
     {
       auth: { persistSession: false, autoRefreshToken: false },
-      global: { fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }) },
+      // Cache Supabase reads for 60s (Next data cache) so pages don't wait on the database every click.
+      global: { fetch: (input, init) => fetch(input, { ...init, next: { revalidate: 60 } } as RequestInit) },
     }
   );
 }

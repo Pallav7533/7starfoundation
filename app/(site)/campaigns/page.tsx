@@ -4,7 +4,7 @@ import SafeImage from "@/components/SafeImage";
 import { getCampaigns } from "@/lib/content";
 
 export const metadata = { title: "Our Campaigns" };
-export const dynamic = "force-dynamic";
+export const dynamic = "revalidate = 60";
 
 export default async function Campaigns() {
   const campaigns = await getCampaigns();

@@ -3,7 +3,7 @@ import EnquiryForm from "@/components/EnquiryForm";
 import { getSettings } from "@/lib/content";
 
 export const metadata = { title: "CSR and Partnerships" };
-export const dynamic = "force-dynamic";
+export const dynamic = "revalidate = 60";
 
 export default async function CSR() {
   const s = await getSettings();

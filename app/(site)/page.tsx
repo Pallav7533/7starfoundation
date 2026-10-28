@@ -7,7 +7,7 @@ import EnquiryForm from "@/components/EnquiryForm";
 import { getAshrams, getCampaigns, getGallery, getHeroSlides, getPublishedDonors, getSettings, todayIST } from "@/lib/content";
 import type { GalleryItem } from "@/lib/types";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "revalidate = 60";
 
 const fallbackGallery: GalleryItem[] = [1, 2, 3, 4].map((n, i) => ({
   id: `g${n}`, title: "", media_type: "image", url: `/images/gallery-${n}.jpg`, thumbnail: null, sort_order: n, is_published: true,

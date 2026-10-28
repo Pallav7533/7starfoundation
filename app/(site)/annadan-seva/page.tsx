@@ -4,7 +4,7 @@ import AnnadanRegister from "@/components/AnnadanRegister";
 import { getAshrams, todayIST } from "@/lib/content";
 
 export const metadata = { title: "Annadan Seva — Daily Meal Donation Register" };
-export const dynamic = "force-dynamic";
+export const dynamic = "revalidate = 60";
 
 export default async function AnnadanSeva() {
   const ashrams = await getAshrams();

@@ -1,5 +1,9 @@
+/** Fixed seva package: one-time meal for the seniors at Dikra Nu Ghar Ashram. */
+export const MEAL_SEVA_PURPOSE = "One-Time Meal Seva";
+export const MEAL_SEVA_AMOUNT = 2500;
+
 export const DONATION_PURPOSES = [
-  "General Donation", "Senior Citizen Care", "Morning Meal Seva", "Evening Meal Seva",
+  "General Donation", MEAL_SEVA_PURPOSE, "Senior Citizen Care", "Morning Meal Seva", "Evening Meal Seva",
   "Animal and Bird Care", "Community Seva", "Specific Campaign",
 ] as const;
 
@@ -21,6 +25,6 @@ export function buildWhatsAppUrl(i: DonationInput, number = "917070818112"): str
   if (i.target) text += ` at ${i.target}`;
   text += `. My name is ${i.name.trim()} and my mobile number is ${i.mobile.trim()}.`;
   if (i.message.trim()) text += ` Occasion/Message: ${i.message.trim()}.`;
-  text += " Please guide me regarding the donation process.";
+  text += " I will share my payment screenshot here. Please guide me regarding the donation process.";
   return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 }

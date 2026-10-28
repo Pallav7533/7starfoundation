@@ -3,7 +3,7 @@ import GalleryGrid from "@/components/GalleryGrid";
 import { getGallery } from "@/lib/content";
 
 export const metadata = { title: "Gallery" };
-export const dynamic = "force-dynamic";
+export const dynamic = "revalidate = 60";
 
 export default async function Gallery() {
   const items = await getGallery();

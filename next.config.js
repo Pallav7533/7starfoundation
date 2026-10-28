@@ -5,8 +5,15 @@ const nextConfig = {
   // After your first successful local `npm run build`, set ignoreBuildErrors to false.
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
+  compress: true,
+  poweredByHeader: false,
   async headers() {
     return [
+      {
+        // Photos: browser/CDN keeps them for a day and refreshes quietly in the background.
+        source: "/images/(.*)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+      },
       {
         source: "/(.*)",
         headers: [
