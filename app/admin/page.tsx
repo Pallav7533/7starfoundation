@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createBrowserSupabase } from "@/lib/supabase/client";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -45,7 +46,8 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="grid min-h-screen place-items-center bg-gradient-to-br from-cream via-ivory to-gold/20 p-5">
+    <div className="relative grid min-h-screen place-items-center bg-gradient-to-br from-cream via-ivory to-gold/20 p-5">
+      <LanguageSwitcher className="absolute right-4 top-4" />
       <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-photo sm:p-10">
         <div className="text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}

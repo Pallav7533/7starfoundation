@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { createBrowserSupabase } from "@/lib/supabase/client";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const NAV = [
   ["Dashboard", "/admin/dashboard"], ["Annadan Seva Register", "/admin/annadan"], ["Ashram Details", "/admin/ashrams"],
@@ -41,7 +42,8 @@ export default function AdminShell({ email, children }: { email: string; childre
           <img src="/logo.jpg" alt="" width={48} height={48} className="rounded-full" />
           <div><p className="font-serif text-lg leading-tight">7 Star Help</p><p className="text-[11px] uppercase tracking-widest text-gold-light">Admin Panel</p></div>
         </div>
-        <nav className="mt-4 space-y-1 lg:mt-8" aria-label="Admin">
+        <LanguageSwitcher light className="mt-4 lg:mt-6" />
+        <nav className="mt-4 space-y-1 lg:mt-4" aria-label="Admin">
           {NAV.map(([l, h]) => (
             <Link key={h} href={h} className={`block rounded-xl px-4 py-3 text-sm font-medium transition ${path.startsWith(h) ? "bg-white text-navy" : "text-white/85 hover:bg-white/10"}`}>{l}</Link>
           ))}

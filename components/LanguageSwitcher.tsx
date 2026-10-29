@@ -17,7 +17,7 @@ function setCookie(value: string | null) {
   if (host.includes(".")) document.cookie = `${base}; domain=.${host}`;
 }
 
-export default function LanguageSwitcher({ className = "" }: { className?: string }) {
+export default function LanguageSwitcher({ className = "", light = false }: { className?: string; light?: boolean }) {
   const [lang, setLang] = useState<"en" | "hi" | "gu">("en");
   useEffect(() => { setLang(readLang()); }, []);
 
@@ -29,7 +29,7 @@ export default function LanguageSwitcher({ className = "" }: { className?: strin
 
   return (
     <label className={`notranslate inline-flex items-center gap-1.5 ${className}`} translate="no">
-      <svg aria-hidden width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-navy">
+      <svg aria-hidden width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={light ? "text-white" : "text-navy"}>
         <circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" />
       </svg>
       <span className="sr-only">Language / भाषा / ભાષા</span>
