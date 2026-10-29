@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { getSettings } from "@/lib/content";
+import GoogleTranslateLoader from "@/components/GoogleTranslateLoader";
 
 const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-serif", display: "swap" });
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
-export const dynamic = "revalidate = 60";
+export const revalidate = 60; // cached page, refreshed every 60s
 
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSettings();
@@ -24,7 +25,10 @@ export const viewport = { width: "device-width", initialScale: 1, themeColor: "#
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <GoogleTranslateLoader />
+      </body>
     </html>
   );
 }

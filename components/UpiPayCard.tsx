@@ -53,7 +53,7 @@ export default function UpiPayCard({
             Scan with any UPI app. The amount <strong>₹{shown}</strong> fills in automatically.
           </p>
           <a href={upiUrl} className="btn-primary mt-4 w-full max-w-xs md:hidden">Pay ₹{shown} with UPI app</a>
-          <p className="mt-3 text-xs text-body/60">UPI ID: <span className="font-semibold text-navy">{upiId}</span></p>
+          <p className="mt-3 text-xs text-body/60">UPI ID: <span translate="no" className="notranslate font-semibold text-navy">{upiId}</span></p>
         </>
       )}
 

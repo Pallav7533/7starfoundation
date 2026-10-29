@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 type Item = { label: string; href: string };
 
@@ -60,6 +61,7 @@ export default function Header({ ashrams, campaigns }: { ashrams: Item[]; campai
           <Link href="/contact" className={link("/contact")}>Contact Us</Link>
         </nav>
         <div className="flex items-center gap-2">
+          <LanguageSwitcher className="hidden sm:inline-flex" />
           <Link href="/donate" className="btn-primary px-5 py-2.5">Donate Now</Link>
           <button type="button" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
@@ -76,6 +78,7 @@ export default function Header({ ashrams, campaigns }: { ashrams: Item[]; campai
       {open && (
         <div className="fixed inset-x-0 bottom-0 top-[76px] z-40 overflow-y-auto bg-ivory xl:hidden">
           <nav aria-label="Mobile" className="container-x flex flex-col py-4">
+            <LanguageSwitcher className="mb-2 sm:hidden" />
             {[
               ["Home", "/"], ["About Us", "/about"], ["Community", "/community"], ["Annadan Seva", "/annadan-seva"],
               ["CSR", "/csr"], ["Gallery", "/gallery"], ["Contact Us", "/contact"],

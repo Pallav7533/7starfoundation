@@ -21,6 +21,12 @@ h1, h2, h3, .font-display { font-family: var(--font-serif), Georgia, serif; }
   .card { @apply rounded-2xl bg-white shadow-soft; }
 }
 
+/* Hide Google Translate's own top banner / tooltips; we use our own language dropdown. */
+body > .skiptranslate, iframe.goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+body { top: 0 !important; position: static !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+font[style] { background: transparent !important; box-shadow: none !important; }
+
 .gold-frame { border: 2px solid #D7A54A; outline: 1px solid rgba(215,165,74,.45); outline-offset: 6px; }
 .fade-up { animation: fadeUp .8s ease both; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
