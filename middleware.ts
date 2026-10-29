@@ -24,13 +24,19 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  const { data } = await supabase.auth.getUser();
-
-  if (path.startsWith("/admin") && !isOpen && !data.user) {
-    return NextResponse.redirect(new URL("/admin", request.url));
+  // Protected admin pages: only check that a login cookie exists (NO network call to Supabase).
+  // This was a full round-trip on every admin click. The panel layout still verifies the user
+  // and admin rights with Supabase on the server, so this is only a fast first gate.
+  if (path.startsWith("/admin") && !isOpen) {
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) return NextResponse.redirect(new URL("/admin", request.url));
+    return response;
   }
-  if (path === "/admin" && data.user) {
-    return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+
+  // Login page: stay strict (verified with Supabase) so a stale cookie can never cause a redirect loop.
+  if (path === "/admin") {
+    const { data } = await supabase.auth.getUser();
+    if (data.user) return NextResponse.redirect(new URL("/admin/dashboard", request.url));
   }
   return response;
 }

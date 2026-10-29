@@ -19,6 +19,7 @@ export default function AdminLogin() {
     setError(""); setInfo("");
     if (Date.now() < fails.current.until) { setError("Too many attempts. Please wait a minute and try again."); return; }
     setBusy(true);
+    let success = false;
     try {
       const supabase = createBrowserSupabase();
       const { data, error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
@@ -30,11 +31,15 @@ export default function AdminLogin() {
       }
       const { data: row } = await supabase.from("admin_users").select("user_id").eq("user_id", data.user.id).maybeSingle();
       if (!row) { await supabase.auth.signOut(); setError("This account is not authorised for the admin panel."); return; }
+      // Stay on "Signing in…" until the dashboard actually opens (no fake idle button),
+      // and navigate once (the extra router.refresh() made the server do all the work twice).
+      success = true;
       router.replace("/admin/dashboard");
-      router.refresh();
     } catch {
       setError("Could not sign in. Please check your connection and try again.");
-    } finally { setBusy(false); }
+    } finally {
+      if (!success) setBusy(false);
+    }
   }
 
   async function forgot() {
