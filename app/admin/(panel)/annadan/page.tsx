@@ -11,6 +11,15 @@ type Row = {
 };
 const OCCASIONS = ["", "Birthday", "Anniversary", "In Memory", "Family Seva", "Other"];
 const PAGE = 15;
+/**
+ * Register order: oldest date first (31/10 before 4/11), then Morning before Evening,
+ * then the entry that was added first. Used by the list and both CSV exports.
+ * ("morning" sorts AFTER "evening" alphabetically, so meal_session is sorted descending to put Morning first.)
+ */
+const orderEntries = (q: any) =>
+  q.order("donation_date", { ascending: true })
+    .order("meal_session", { ascending: false })
+    .order("created_at", { ascending: true });
 const istToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(new Date());
 
 export default function AnnadanAdmin() {
@@ -54,8 +63,8 @@ export default function AnnadanAdmin() {
 
   const load = useCallback(async () => {
     setLoading(true);
-    const q = applyFilters(supabase.from("meal_donations").select("*", { count: "exact" }))
-      .order("donation_date", { ascending: false }).order("created_at", { ascending: false }).range(page * PAGE, page * PAGE + PAGE - 1);
+    const q = orderEntries(applyFilters(supabase.from("meal_donations").select("*", { count: "exact" })))
+      .range(page * PAGE, page * PAGE + PAGE - 1);
     const { data, count, error } = await q;
     if (error) setMsg({ t: "err", m: "Could not load entries: " + error.message });
     setRows((data as Row[]) ?? []); setTotal(count ?? 0); setLoading(false);
@@ -101,7 +110,7 @@ export default function AnnadanAdmin() {
   }
 
   async function exportAll() {
-    const { data } = await applyFilters(supabase.from("meal_donations").select("*")).order("donation_date").limit(5000);
+    const { data } = await orderEntries(applyFilters(supabase.from("meal_donations").select("*"))).limit(5000);
     const list = (data as Row[]) ?? [];
     downloadCsv(`annadan-register-${istToday()}.csv`, toCsv(
       ["Date", "Session", "Ashram", "Donor", "Family/Organization", "Occasion", "Phone (private)", "Address (private)", "Notes (private)", "Public permission", "Status"],
@@ -111,7 +120,7 @@ export default function AnnadanAdmin() {
     const [y, m] = month.split("-").map(Number);
     const start = `${month}-01`;
     const end = new Date(Date.UTC(y, m, 1)).toISOString().slice(0, 10);
-    const { data } = await supabase.from("meal_donations").select("*").gte("donation_date", start).lt("donation_date", end).order("donation_date").limit(10000);
+    const { data } = await orderEntries(supabase.from("meal_donations").select("*").gte("donation_date", start).lt("donation_date", end)).limit(10000);
     const list = (data as Row[]) ?? [];
     downloadCsv(`annadan-monthly-report-${month}.csv`, toCsv(
       ["Date", "Session", "Ashram", "Donor", "Family/Organization", "Occasion", "Status"],
