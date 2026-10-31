@@ -9,66 +9,182 @@ const icons: Record<string, string> = {
   threads: "M12 2a10 10 0 100 20 10 10 0 000-20zm.2 5.500c1.800 0 3.200 1 3.600 2.800l-1.400.4c-.3-1-1-1.600-2.200-1.600-1.300 0-2.200.8-2.200 1.800 0 .9.700 1.500 2.100 1.700l.8.100c2 .3 3 1.400 3 3 0 1.800-1.600 3.100-3.900 3.100-2.500 0-4-1.300-4.200-3.300l1.500-.2c.1 1.200 1 1.900 2.700 1.900 1.500 0 2.400-.6 2.400-1.600 0-.8-.6-1.300-1.800-1.500l-.9-.1c-1.900-.3-3-1.400-3-3 0-1.800 1.600-3 3.500-3z",
 };
 
-export default function Footer({ settings, ashrams, campaigns }: { settings: Settings; ashrams: Ashram[]; campaigns: Campaign[] }) {
-  const socials = Object.entries(settings.social).filter(([, v]) => v && /^https?:\/\//.test(v));
+export default function Footer({
+  settings,
+  ashrams,
+  campaigns,
+}: {
+  settings: Settings;
+  ashrams: Ashram[];
+  campaigns: Campaign[];
+}) {
+  const socials = Object.entries(settings.social).filter(
+    ([, v]) => v && /^https?:\/\//.test(v)
+  );
+
   return (
     <footer className="mt-0 bg-navy text-white">
       <div className="h-1 bg-gradient-to-r from-magenta via-gold to-magenta" />
+
       <div className="container-x grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <Logo size={64} light />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/75">{settings.footer.intro}</p>
+
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/75">
+            {settings.footer.intro}
+          </p>
+
           <div className="mt-5 flex gap-3">
             {["instagram", "facebook", "youtube", "threads"].map((k) => {
               const url = (settings.social as any)[k] as string;
               const ok = url && /^https?:\/\//.test(url);
+
               return ok ? (
-                <a key={k} href={url} target="_blank" rel="noopener noreferrer" aria-label={k}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/25 transition hover:border-gold hover:bg-gold hover:text-navy">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d={icons[k]} /></svg>
+                <a
+                  key={k}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={k}
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/25 transition hover:border-gold hover:bg-gold hover:text-navy"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d={icons[k]} />
+                  </svg>
                 </a>
               ) : null;
             })}
-            {socials.length === 0 && <p className="text-xs text-white/50">Social links will appear here once added.</p>}
+
+            {socials.length === 0 && (
+              <p className="text-xs text-white/50">
+                Social links will appear here once added.
+              </p>
+            )}
           </div>
         </div>
+
         <div>
           <h3 className="font-serif text-lg text-gold-light">Quick Links</h3>
           <ul className="mt-4 space-y-2 text-sm text-white/80">
-            {[["About Us", "/about"], ["Annadan Seva", "/annadan-seva"], ["Community", "/community"], ["CSR", "/csr"], ["Gallery", "/gallery"], ["Contact Us", "/contact"], ["Donate Now", "/donate"]].map(([l, h]) => (
-              <li key={h}><Link href={h} className="hover:text-gold-light">{l}</Link></li>
+            {[
+              ["About Us", "/about"],
+              ["Annadan Seva", "/annadan-seva"],
+              ["Community", "/community"],
+              ["CSR", "/csr"],
+              ["Gallery", "/gallery"],
+              ["Contact Us", "/contact"],
+              ["Donate Now", "/donate"],
+            ].map(([l, h]) => (
+              <li key={h}>
+                <Link href={h} className="hover:text-gold-light">
+                  {l}
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
+
         <div>
           <h3 className="font-serif text-lg text-gold-light">Our Ashrams</h3>
           <ul className="mt-4 space-y-2 text-sm text-white/80">
-            {ashrams.map((a) => <li key={a.slug}><Link href={`/ashrams/${a.slug}`} className="hover:text-gold-light">{a.name}</Link></li>)}
+            {ashrams.map((a) => (
+              <li key={a.slug}>
+                <Link
+                  href={`/ashrams/${a.slug}`}
+                  className="hover:text-gold-light"
+                >
+                  {a.name}
+                </Link>
+              </li>
+            ))}
           </ul>
-          <h3 className="mt-6 font-serif text-lg text-gold-light">Campaigns</h3>
+
+          <h3 className="mt-6 font-serif text-lg text-gold-light">
+            Campaigns
+          </h3>
           <ul className="mt-4 space-y-2 text-sm text-white/80">
-            {campaigns.map((c) => <li key={c.slug}><Link href={`/campaigns#${c.slug}`} className="hover:text-gold-light">{c.title}</Link></li>)}
+            {campaigns.map((c) => (
+              <li key={c.slug}>
+                <Link
+                  href={`/campaigns#${c.slug}`}
+                  className="hover:text-gold-light"
+                >
+                  {c.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
+
         <div>
           <h3 className="font-serif text-lg text-gold-light">Contact</h3>
           <ul className="mt-4 space-y-2 text-sm text-white/80">
-            <li>WhatsApp / Call: <a className="underline-offset-2 hover:underline" href={`https://wa.me/${settings.contact.whatsapp_number}`}>{settings.contact.whatsapp_display}</a></li>
-            {settings.contact.email && <li>Email: <a className="hover:underline" href={`mailto:${settings.contact.email}`}>{settings.contact.email}</a></li>}
-            {settings.contact.address && <li>{settings.contact.address}</li>}
+            <li>
+              WhatsApp / Call:{" "}
+              <a
+                className="underline-offset-2 hover:underline"
+                href={`https://wa.me/${settings.contact.whatsapp_number}`}
+              >
+                {settings.contact.whatsapp_display}
+              </a>
+            </li>
+
+            {settings.contact.email && (
+              <li>
+                Email:{" "}
+                <a
+                  className="hover:underline"
+                  href={`mailto:${settings.contact.email}`}
+                >
+                  {settings.contact.email}
+                </a>
+              </li>
+            )}
+
+            {settings.contact.address && (
+              <li>{settings.contact.address}</li>
+            )}
           </ul>
         </div>
       </div>
+
       <div className="border-t border-white/10">
         <div className="container-x flex flex-col items-center justify-between gap-3 py-5 text-xs text-white/60 sm:flex-row">
-          <p>© {new Date().getFullYear()} 7 Star Help Foundation. All rights reserved.</p>
-          <p className="flex gap-5"><Link href="/privacy" className="hover:text-gold-light">Privacy Policy</Link><Link href="/terms" className="hover:text-gold-light">Terms and Conditions</Link></p>
+          <div className="text-center sm:text-left">
+            <p>
+              © {new Date().getFullYear()} 7 Star Help Foundation. All rights
+              reserved.
+            </p>
+            <p className="mt-2 text-white/70">
+              Reg. No.: F/6565/B.K GUJ/64 66/B.K
+            </p>
+          </div>
+
+          <p className="flex gap-5">
+            <Link href="/privacy" className="hover:text-gold-light">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:text-gold-light">
+              Terms and Conditions
+            </Link>
+          </p>
         </div>
+
         <div className="border-t border-white/10">
           <p className="container-x py-3 text-center text-xs text-white/60">
             Design &amp; Developed by{" "}
-            <a href="https://github.com/Pallav7533" target="_blank" rel="noopener noreferrer" translate="no"
-              className="notranslate font-semibold text-gold-light underline-offset-2 transition hover:text-white hover:underline">
+            <a
+              href="https://github.com/Pallav7533"
+              target="_blank"
+              rel="noopener noreferrer"
+              translate="no"
+              className="notranslate font-semibold text-gold-light underline-offset-2 transition hover:text-white hover:underline"
+            >
               Pallav Chavda – Deesa
             </a>
           </p>
